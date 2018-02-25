@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" fx:id="root" prefHeight="450.0" prefWidth="320" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bbt28cpumonitorfxml.FXMLDocumentController">
+    <children>
+      <VBox fx:id="rootContainer" layoutX="-1.0" prefHeight="407.0" prefWidth="320.0">
+         <children>
+            <StackPane fx:id="imagePane" prefHeight="411.0" prefWidth="320.0">
+               <children>
+                  <ImageView fx:id="gauge" fitHeight="200.0" fitWidth="200.0">
+                     <image>
+                        <Image url="@gauge.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="dial" fitHeight="200.0" fitWidth="200.0" rotate="-145.3">
+                     <image>
+                        <Image url="@hand.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </StackPane>
+            <VBox fx:id="displayVBox" prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label fx:id="digitalDisplay" alignment="CENTER" prefHeight="55.0" prefWidth="343.0" text="--.--">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <HBox fx:id="buttonHBox" alignment="CENTER" maxHeight="40.0" maxWidth="320.0" prefHeight="30.0" prefWidth="280.0" spacing="10.0">
+               <children>
+                  <Button fx:id="recordButton" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#recordButtonAction" prefHeight="30.0" prefWidth="70.0" text="Record">
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin></Button>
+                    <Button fx:id="startButton" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" onAction="#startButtonAction" prefHeight="30.0" prefWidth="70.0" text="Start">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets></Button>
+               </children>
+               <padding>
+                  <Insets left="50.0" right="50.0" />
+               </padding>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <VBox fx:id="recordingsVBox" alignment="CENTER" prefHeight="169.0" prefWidth="321.0">
+               <children>
+                  <Label fx:id="recording1" contentDisplay="CENTER" text="--.--" textAlignment="CENTER">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding></Label>
+                  <Label fx:id="recording2" text="--.--">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding></Label>
+                  <Label fx:id="recording3" text="--.--">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding></Label>
+               </children>
+            </VBox>
+         </children>
+      </VBox>
+    </children>
+</AnchorPane>
