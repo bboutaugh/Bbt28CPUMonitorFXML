@@ -10,6 +10,7 @@ import java.lang.management.OperatingSystemMXBean;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -69,28 +70,58 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private void recordButtonAction(ActionEvent event)
     {
-        
-    }
+        if(model.isActivated)
+        {
+        //Record Action
+        if((recording2.getText() == "--.--") && (recording3.getText() == "--.--") 
+                &&(recording1.getText() == "--.--"))
+        {
+        recording1.setText(String.valueOf(model.twoDecimals.format(model.getCPUUsage()*100.00))+ "%");
+        }
+        else if((recording1.getText()) != "--.--" && (recording2.getText() == "--.--"))
+        {
+            recording2.setText(String.valueOf(model.twoDecimals.format(model.getCPUUsage()*100.00))+ "%");
+        }
+        else if((recording1.getText() != "--.--") && (recording2.getText() != "--.--"))
+        {
+            recording3.setText(String.valueOf(model.twoDecimals.format(model.getCPUUsage()*100.00))+ "%");
+        }
+      
+        }
+        else
+        {
+        //Reset Action
+        recording1.setText("--.--");
+        recording2.setText("--.--");
+        recording3.setText("--.--");
+        digitalDisplay.setText("--.--");
+        }
+       
+    }//End Record Button Action Event
     
     @FXML
     private void startButtonAction(ActionEvent event)
     {
         if(model.isActivated)
         {
+        //Stop Action
         startButton.setText("Start");
         recordButton.setText("Reset");
-        //timeline.pause();
-        model.getCPUUsage();
+        model.timeline.pause();
         model.isActivated = false;
         }
         else
         {
+        //Start Action
         startButton.setText("Stop");
         recordButton.setText("Record");
-        //timeline.play();
+        model.timeline.play();
+        model.setupDuration();
+        model.getCPUUsage();
+        digitalDisplay.setText(String.valueOf(model.twoDecimals.format(model.getCPUUsage()*100.00))+ "%");
         model.isActivated = true;
         }
-    }
+    }//End Start Button Action Event
     
   
     @Override
