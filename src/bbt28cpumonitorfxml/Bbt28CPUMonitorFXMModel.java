@@ -13,6 +13,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
+import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +31,8 @@ public class Bbt28CPUMonitorFXMModel
     //ImageView dial;
     Image gaugeImage;
     ImageView gauge;
+    ImageView image;
+    int degrees;
     boolean isActivated;
     
     private double usage;
@@ -51,6 +54,7 @@ public class Bbt28CPUMonitorFXMModel
         isActivated = false;
         this.usage = 0.0;
         twoDecimals = new DecimalFormat("#.00");
+        rotateDial(0 ,image);
       }
       
        public void update() 
@@ -88,11 +92,20 @@ public class Bbt28CPUMonitorFXMModel
     
     public void setupDuration() 
      {
-        keyframe = new KeyFrame(Duration.millis(timeInSeconds * 1000), (ActionEvent event) -> {
+        keyframe = new KeyFrame(Duration.millis(timeInSeconds * 1), (ActionEvent event) -> {
             update();
         });
         timeline = new Timeline(keyframe);
         timeline.setCycleCount(Animation.INDEFINITE);
+    }
+    
+    public void rotateDial(int degrees, ImageView image)
+    {
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(1),this.image);
+        rotateTransition.setByAngle(this.degrees);
+        rotateTransition.setCycleCount(this.degrees);
+        rotateTransition.setAutoReverse(false);
+        rotateTransition.play();  
     }
     
 }//End Bbt28CPUMonitorFXMModel 
