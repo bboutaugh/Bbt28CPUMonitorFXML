@@ -26,8 +26,8 @@ import javafx.util.Duration;
  */
 public class Bbt28CPUMonitorFXMModel 
 { 
-    Image dialImage;
-    ImageView dial;
+    //Image dialImage;
+    //ImageView dial;
     Image gaugeImage;
     ImageView gauge;
     boolean isActivated;
@@ -42,14 +42,14 @@ public class Bbt28CPUMonitorFXMModel
     
       public Bbt28CPUMonitorFXMModel() 
       {
-        dialImage = new Image(getClass().getResourceAsStream("hand.png"));
+       // dialImage = new Image(getClass().getResourceAsStream("hand.png"));
         gaugeImage = new Image(getClass().getResourceAsStream("gauge.png"));
         this.secondsElapsed = 1.0;
         this.timeInSeconds = 1.0;
+        setupDuration();
         this.angleDeltaPerSeconds = 6.0;
         isActivated = false;
         this.usage = 0.0;
-        setupDuration();
         twoDecimals = new DecimalFormat("#.00");
       }
       
@@ -58,7 +58,7 @@ public class Bbt28CPUMonitorFXMModel
         secondsElapsed += timeInSeconds;
         double rotation = secondsElapsed * angleDeltaPerSeconds;
         //digitalDisplay.setText(String.valueOf(model.getCPUUsage()*100.00));
-        dial.setRotate(rotation);
+        //dial.setRotate(rotation);
       }
     
     //Getting CPU Usage//////////

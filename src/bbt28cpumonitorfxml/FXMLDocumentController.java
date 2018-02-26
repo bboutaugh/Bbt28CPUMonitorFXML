@@ -11,7 +11,12 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.text.DecimalFormat;
+import java.time.Clock;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -21,6 +26,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 /**
  *
@@ -29,6 +35,15 @@ import javafx.scene.layout.VBox;
 public class FXMLDocumentController implements Initializable 
 {
     Bbt28CPUMonitorFXMModel model = new Bbt28CPUMonitorFXMModel();
+    Timeline timeline;
+    KeyFrame keyframe;
+    double secondsElapsed;
+    double timeInSeconds;
+    double angleDeltaPerSeconds;
+    boolean recordCheck1 = true;
+    boolean recordCheck2 = false;
+    boolean recordCheck3 = false;
+
     
     @FXML
     private VBox rootContainer;
@@ -73,21 +88,33 @@ public class FXMLDocumentController implements Initializable
         if(model.isActivated)
         {
         //Record Action
-        if((recording2.getText() == "--.--") && (recording3.getText() == "--.--") 
-                &&(recording1.getText() == "--.--"))
+        if(recordCheck1)
         {
-        recording1.setText(String.valueOf(model.twoDecimals.format(model.getCPUUsage()*100.00))+ "%");
+        recording1.setText(String.valueOf("Recording 1: " + 
+                model.twoDecimals.format(model.getCPUUsage()*100.00))+ "% " 
+                + LocalDateTime.now());
+        recordCheck1 = false;
+        recordCheck2 = true;
         }
-        else if((recording1.getText()) != "--.--" && (recording2.getText() == "--.--"))
+        else if(recordCheck2)
         {
-            recording2.setText(String.valueOf(model.twoDecimals.format(model.getCPUUsage()*100.00))+ "%");
+            recording2.setText(String.valueOf("Recording 2: " + 
+                    model.twoDecimals.format(model.getCPUUsage()*100.00))+ "% " 
+                    + LocalDateTime.now());
+            recordCheck2 = false;
+            recordCheck3 = true;
         }
-        else if((recording1.getText() != "--.--") && (recording2.getText() != "--.--"))
+        else if(recordCheck3)
         {
-            recording3.setText(String.valueOf(model.twoDecimals.format(model.getCPUUsage()*100.00))+ "%");
+            recording3.setText(String.valueOf("Recording 3: " + 
+                    model.twoDecimals.format(model.getCPUUsage()*100.00))+ "% " 
+                    + LocalDateTime.now());
+            recordCheck3 = false;
+            recordCheck1 = true;
+           
         }
       
-        }
+        }//End isActivated if else statement
         else
         {
         //Reset Action
@@ -115,15 +142,17 @@ public class FXMLDocumentController implements Initializable
         //Start Action
         startButton.setText("Stop");
         recordButton.setText("Record");
+        //model.setupDuration();
         model.timeline.play();
-        model.setupDuration();
-        model.getCPUUsage();
+        //model.getCPUUsage();
         digitalDisplay.setText(String.valueOf(model.twoDecimals.format(model.getCPUUsage()*100.00))+ "%");
         model.isActivated = true;
         }
     }//End Start Button Action Event
     
-  
+
+ 
+        
     @Override
     public void initialize(URL url, ResourceBundle rb) 
     {

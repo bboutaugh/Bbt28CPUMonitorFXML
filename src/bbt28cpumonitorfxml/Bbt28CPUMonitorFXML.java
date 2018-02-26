@@ -5,11 +5,14 @@
  */
 package bbt28cpumonitorfxml;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  *
@@ -17,10 +20,18 @@ import javafx.stage.Stage;
  */
 public class Bbt28CPUMonitorFXML extends Application 
 {
-    
+    Bbt28CPUMonitorFXMModel model = new Bbt28CPUMonitorFXMModel();
     @Override
     public void start(Stage stage) throws Exception 
     {
+        
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), (ActionEvent) -> {
+        model.getCPUUsage();
+        }));
+        
+        timeline.setCycleCount(100);
+        timeline.play();
+        
         Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
         
         Scene scene = new Scene(root);
